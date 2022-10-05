@@ -2,6 +2,7 @@
 
 
 #include "AI/LAICharacter.h"
+#include "AI/Components/LPatrolComponent.h"
 #include "Common/LAttributesComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -13,6 +14,11 @@ ALAICharacter::ALAICharacter()
 	PrimaryActorTick.bCanEverTick = false;
 
 	AttributesComp = CreateDefaultSubobject<ULAttributesComponent>("AttributesComp");
+	PatrolComp = CreateDefaultSubobject<ULPatrolComponent>("PatrolComp");
+
+	bUseControllerRotationYaw = false;
+	GetCharacterMovement()->RotationRate = FRotator(0.0f, 270.f, 0.0f);
+	GetCharacterMovement()->bUseControllerDesiredRotation = true;
 }
 
 void ALAICharacter::PostInitializeComponents()
@@ -24,7 +30,7 @@ void ALAICharacter::PostInitializeComponents()
 void ALAICharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	if (WeaponClass)
 	{
 		FActorSpawnParameters ActorSpawnParams;
@@ -32,6 +38,16 @@ void ALAICharacter::BeginPlay()
 		Weapon = GetWorld()->SpawnActor<ALWeapon>(WeaponClass, ActorSpawnParams);
 	}
 }
+
+const EAIState& ALAICharacter::GetAIState() const	{return AIState;}
+
+void ALAICharacter::SetAIState_Implementation(const EAIState& NewState)
+{
+	AIState = NewState;
+	OnStateChanged.Execute(AIState);
+}
+
+UBehaviorTree* ALAICharacter::GetBT() const	{return BT;}
 
 
 void ALAICharacter::OnKilled()

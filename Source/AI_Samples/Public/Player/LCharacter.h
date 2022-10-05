@@ -12,6 +12,7 @@ class AI_SAMPLES_API ALCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+	
 public:
 	ALCharacter();
 	virtual void PostInitializeComponents() override;
@@ -19,6 +20,9 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 	
 	virtual void GetActorEyesViewPoint(FVector& OutLocation, FRotator& OutRotation) const override;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	virtual bool HasWeapon() const;
 
 protected:
 	void MoveForward(float Value);
@@ -38,16 +42,16 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(VisibleAnywhere, Category=Components)
 	class USpringArmComponent* SpringArmComp;
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(VisibleAnywhere, Category=Components)
 	class UCameraComponent* CameraComp;
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(VisibleAnywhere, Category=Components)
 	class ULAttributesComponent* AttributesComp;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Components")
+	UPROPERTY(EditDefaultsOnly, Category=Components)
 	TSubclassOf<class ALWeapon> WeaponClass;
 
 private:

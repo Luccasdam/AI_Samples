@@ -9,3 +9,4 @@ ALGameModeBase::ALGameModeBase()
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnObject(TEXT("/Game/Blueprints/Player/BP_PlayerCharacter"));
 	DefaultPawnClass = PlayerPawnObject.Class;
 }
+

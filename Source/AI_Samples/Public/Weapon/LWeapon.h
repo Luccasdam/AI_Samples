@@ -7,30 +7,31 @@
 #include "LWeapon.generated.h"
 
 
+// REVISE: Should implement a singleton to hold static data?
 USTRUCT()
 struct FWeaponData
 {
 	GENERATED_BODY()
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Ammo")
+	UPROPERTY(EditDefaultsOnly, Category=Ammo)
 	bool bInfiniteAmmo;
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Ammo")
+	UPROPERTY(EditDefaultsOnly, Category=Ammo)
 	int32 MaxAmmo;
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Ammo")
+	UPROPERTY(EditDefaultsOnly, Category=Ammo)
 	int32 ClipSize;
 	
 	/** Fire rate in seconds till next fire */
-	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	UPROPERTY(EditDefaultsOnly, Category=Weapon)
 	float FireRate;
 
 	/** Weapon spread amount in degrees */
-	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	UPROPERTY(EditDefaultsOnly, Category=Weapon)
 	float SpreadAmount;
 
 	/** Weapon fire range */
-	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	UPROPERTY(EditDefaultsOnly, Category=Weapon)
 	float Range;
 
 	// Better to make a Bullet/Projectile Class that hold the Damage Data
@@ -72,7 +73,7 @@ public:
 
 protected:
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	UPROPERTY(EditDefaultsOnly, Category=Weapon)
 	FWeaponData WeaponData;
 
 	FTimerHandle TimerHandle_FireWeapon;
@@ -83,13 +84,13 @@ protected:
 	UPROPERTY()
 	int32 CurrentClipAmmo;
 	
-	UPROPERTY(VisibleAnywhere, Transient, Category = "Components")
+	UPROPERTY(VisibleAnywhere, Transient, Category=Components)
 	UAudioComponent* FireAudioComp;
 
-	UPROPERTY(VisibleAnywhere, Category = "SoundFX")
+	UPROPERTY(VisibleAnywhere, Category=SoundFX)
 	USoundBase* ImpactSound;
 
 	/** Usually would name it Mesh, but used "SK_" to "Mark" so I can change it later when I properly implement FirstPerson and ThirdPerson */
-	UPROPERTY(EditDefaultsOnly, Category = "Components")
+	UPROPERTY(EditDefaultsOnly, Category=Components)
 	USkeletalMeshComponent* SK_Weapon;
 };

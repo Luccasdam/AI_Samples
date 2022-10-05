@@ -5,6 +5,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Common/LAttributesComponent.h"
+#include "Perception/AIPerceptionStimuliSourceComponent.h"
 #include "Weapon/LWeapon.h"
 
 
@@ -60,6 +61,7 @@ void ALCharacter::GetActorEyesViewPoint(FVector& OutLocation, FRotator& OutRotat
 	OutRotation = GetControlRotation();
 }
 
+bool ALCharacter::HasWeapon() const	{return IsValid(Weapon);}
 
 void ALCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -96,14 +98,32 @@ void ALCharacter::MoveRight(float Value)
 }
 
 // TODO: Probably Make a OnStart/OnStop WeaponFire with some validations for better control and avoid bugs.
-// TODO: At the moment the weapon is always valid and fixed. When implement a better weapon system, check if the weapon is valid and which weapon is using
-void ALCharacter::StartWeaponFire()	{Weapon->StartFire();}
+// atm the weapon is always valid and fixed. Implement a better weapon or inventory system and check if the weapon is valid and which weapon is using
+void ALCharacter::StartWeaponFire()
+{
+	if (IsValid(Weapon))
+		Weapon->StartFire();
+}
 
-void ALCharacter::StopWeaponFire()	{Weapon->StopFire();}
+void ALCharacter::StopWeaponFire()
+{
+	if (IsValid(Weapon))
+		Weapon->StopFire();
+}
 
-void ALCharacter::StartIronSight()	{bWantsToIronSight = true;}
+// TODO: Definitely make a better implementation with IronSight methods 
+void ALCharacter::StartIronSight()
+{
+	if (IsValid(Weapon))
+		bWantsToIronSight = true;
+}
 
-void ALCharacter::StopIronSight()	{bWantsToIronSight = false;}
+void ALCharacter::StopIronSight()
+{
+	if (IsValid(Weapon))
+		bWantsToIronSight = false;
+}
+
 
 void ALCharacter::UpdateIronSight(float DeltaSeconds)
 {

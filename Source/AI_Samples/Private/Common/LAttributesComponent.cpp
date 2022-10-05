@@ -5,7 +5,9 @@
 
 
 ULAttributesComponent* ULAttributesComponent::GetAttributesComponent(const AActor* TargetActor)
-{	return Cast<ULAttributesComponent>(TargetActor->GetComponentByClass(ULAttributesComponent::StaticClass())); }
+{
+	return Cast<ULAttributesComponent>(TargetActor->GetComponentByClass(ULAttributesComponent::StaticClass()));
+}
 
 
 ULAttributesComponent::ULAttributesComponent()
